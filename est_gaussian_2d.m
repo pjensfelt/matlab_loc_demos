@@ -1,5 +1,4 @@
 %
-% Author Patric Jensfelt
 % Adapted from ksdensity2d from pmtk3.googlecode.com
 %
 function [f, gridx1, gridx2] = est_gaussian_2d(X)

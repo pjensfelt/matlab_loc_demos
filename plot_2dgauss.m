@@ -1,5 +1,4 @@
 %
-% Author Patric Jensfelt
 % Plot an ellipse representing the covariance matrix of a Gaussian
 % Modified from gaussPlot2D.m from pmtk3.googlecode.com
 %
