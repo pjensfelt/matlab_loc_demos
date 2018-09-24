@@ -111,3 +111,6 @@ lMask = ones(1,4);
 
 global newN
 newN = 100;
+
+global forceUpdate
+forceUpdate = 0;

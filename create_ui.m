@@ -26,6 +26,7 @@ global coloredPts
 global zRhoStd
 global zPhiStd
 global lMask
+global forceUpdate
 
 % Create a figure and axes
 ax = axes('Units','pixels');
@@ -51,6 +52,11 @@ if filterUI
         'Position', [5 80 50 20],...
         'Callback', @clb_disturbance);
     
+    % Create push button
+    btn = uicontrol('Style', 'pushbutton', 'String', 'Update',...
+        'Position', [5 115 50 20],...
+        'Callback', @clb_forceupdate);
+    
     tbtn = uicontrol('Style', 'togglebutton', 'String', 'DispGauss',...
         'Position', [115 5 70 20],...
         'Callback', @clb_dispgauss);
@@ -59,7 +65,7 @@ if filterUI
     if filterUI == 1
         % Create push button
         tbtn = uicontrol('Style', 'togglebutton', 'String', 'Color',...
-            'Position', [5 115 50 20],...
+            'Position', [5 150 50 20],...
             'Callback', @clb_coloredpts);
         tbtn.Value = coloredPts;
     
@@ -269,6 +275,11 @@ tbtn.Value = lMask(4);
     function clb_L4(source,callbackdata)
         lMask(4) = source.Value;
         disp(sprintf('Pressed L4, used = %d', source.Value))
+    end
+
+    function clb_forceupdate(source,callbackdata)
+        forceUpdate = 1;
+        disp(sprintf('Forcing an update'))
     end
 
     function clb_resample(source,callbackdata)
