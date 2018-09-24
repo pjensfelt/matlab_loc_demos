@@ -50,8 +50,13 @@ while (run)
     rho = sqrt((xL-xt).^2+(yL-yt).^2) + rhoStd*randn(1,NL);
     phi = atan2(yL-yt,xL-xt) - at + phiStd*randn(1,NL);
     
-    if abs(tspeed) > 1e-6 || abs(rspeed) > 1e-6
+    if forceUpdate == 1 || abs(tspeed) > 1e-6 || abs(rspeed) > 1e-6
                 
+        if forceUpdate == 1
+            disp('Asked to force an update')
+        end
+        forceUpdate = 0;
+        
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         % Resample
         if resample && (sum(X(4,:)) < 0.5)
