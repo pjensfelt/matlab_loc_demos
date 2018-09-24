@@ -8,9 +8,6 @@ figure(1)
 % Load simulation parameters
 simulation_parameters;
 
-% Number of particles
-N = 100;
-
 dispGaussApprox = 1;
 
 % Create the UI
@@ -23,6 +20,10 @@ axis([-1 11 -1 11])
 
 % Plot the landmarks
 plot(xL,yL,'ko','MarkerSize',5)
+text(xL(1)-0.3, yL(1)-0.3, '1')
+text(xL(2)+0.3, yL(2)-0.3, '2')
+text(xL(3)+0.3, yL(3)+0.3, '3')
+text(xL(4)-0.3, yL(4)+0.3, '4')
 
 xt=0; yt= 0; at = 0;
 X0 = zeros(3,1);
@@ -43,8 +44,12 @@ while (run)
     rho = sqrt((xL-xt).^2+(yL-yt).^2) + rhoStd*randn(1,NL);
     phi = atan2(yL-yt,xL-xt) - at + phiStd*randn(1,NL);
     
-    if abs(tspeed) > 1e-6 || abs(rspeed) > 1e-6
+    if forceUpdate == 1 || abs(tspeed) > 1e-6 || abs(rspeed) > 1e-6
         
+        if forceUpdate == 1
+            disp('Asked to force an update')
+        end
+        forceUpdate = 0;
         
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         % Predict motion
@@ -79,6 +84,11 @@ while (run)
         
         % Loop over the measurements
         for l = 1:NL
+            
+            % Check if this landmark is used or not
+            if lMask(l) == 0
+                continue
+            end
             
             zRho = sqrt((xL(l)-X(1)).^2+(yL(l)-X(2)).^2);
             
@@ -154,6 +164,12 @@ while (run)
     h = [plot(X(1,:),X(2,:),'b.') display_robot(xt,yt,at,'k',1)];
     if zRhoStd > 0 || zPhiStd > 0
         for k=1:NL
+            
+            % Check if this landmark is used or not
+            if lMask(k) == 0
+                continue
+            end
+            
             h = [h plot([xt xt+rho(k)*cos(at+phi(k))],[yt yt+rho(k)*sin(at+phi(k))],'m')];
         end
     end
