@@ -112,16 +112,6 @@ while (run)
                 H = [H; [ (yL(l)-X(2))/zRho^2, -(xL(l)-X(1))/zRho^2, -1]];
                 innov = [innov; dPhi];
                 R = [R zPhiStd^2];
-                
-                if 1
-                    dx = 1e-6;
-                    dy = 1e-6;
-                    px = atan2(yL(l)-X(2),xL(l)-X(1)-dx) - X(3);
-                    py = atan2(yL(l)-X(2)-dy,xL(l)-X(1)) - X(3);
-                    hx = (px-zPhi)/dx;
-                    hy = (py-zPhi)/dy;
-                    [H(end,1:2) hx hy H(end,1)-hx H(end,2)-hy]
-                end
             end
         end
         
