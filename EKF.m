@@ -94,7 +94,7 @@ while (run)
             
             % Use range measurement
             if zRhoStd > 0
-                H = [H; [ -(2*xL(l) - 2*xt)/(2*zRho), -(2*yL(l) - 2*yt)/(2*zRho), 0]];
+                H = [H; [ -(2*xL(l) - 2*X(1))/(2*zRho), -(2*yL(l) - 2*X(2))/(2*zRho), 0]];
                 innov = [innov; rho(l) - zRho];
                 R = [R zRhoStd^2];
             end
