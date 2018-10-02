@@ -48,11 +48,11 @@ Now press the button "Disturb" which will displace the robot randomly. How well 
 
 What happens if you increase the uncertainty by injecting some noise by pressing "Inject"?
 
-WHat happens with different setting for the measurements?
+What happens with different setting for the measurements?
 
 ### Global localization
 
-
+In many practical applications the robot has no way of knowing where it starts and thus starts with complete uncertainty, corresponding to a uniform probability distribution. We call this problem global localization. Investigate how well the EKF works to deal with this problem by pressing the "Uniform" button.
 
 ## Monte Carlo Localization
 MCL.m
