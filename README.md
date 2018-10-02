@@ -115,7 +115,7 @@ How would you incorporate information from an IMU into the filter?
 
 ### Other measurements
 In EKF.m and MCL.m we use point landmarks. How would you change the code to use
-* Line segments?
-* Raw laser scans?
+* Line segments? What does the measurement model look like?
+* Raw laser scans? Represented how? Measurement model?
 
 
