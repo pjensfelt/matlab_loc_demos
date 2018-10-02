@@ -110,6 +110,9 @@ The code in EKF. and MCL.m provide both simulation and the actual localization. 
 ### Data association
 In the examples above we assumed that we knew at all times what landmarks we measuremed. This can be implemented in practice if we have a way to distinguish one landmark from the other, for example, using appearance or a radio signature. However, there are plenty of cases where you cannot tell one landmark from another. How would you change the examle program abvove to deal with this?
 
+### IMU
+How would you incorporate information from an IMU into the filter?
+
 ### Other measurements
 In EKF.m and MCL.m we use point landmarks. How would you change the code to use
 * Line segments?
