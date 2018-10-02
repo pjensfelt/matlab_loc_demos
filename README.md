@@ -1,4 +1,4 @@
-# matlab_loc_demos
+# Matlab localization demos
 Demos of Extended Kalman Filter and Particle Filter (MCL) for localization developed for demos during lectures
 
 * There are four point landmarks which you can turn on/off. 
