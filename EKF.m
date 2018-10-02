@@ -35,10 +35,14 @@ firstIter = 0;
 
 while (run)
     
-    % Update true pose
-    xt = xt + tspeed*dT*cos(at);
-    yt = yt + tspeed*dT*sin(at);
-    at = at + rspeed*dT;
+    dnoise = (tspeed*dT*tdStd)*randn;
+    arnoise = (rspeed*dT*rdaStd)*randn;
+    atnoise = (tspeed*dT*tdStd)*randn;
+    
+    % Update true pose and add noise to this
+    xt = xt + (tspeed*dT+dnoise)*cos(at);
+    yt = yt + (tspeed*dT+dnoise)*sin(at);
+    at = at + (rspeed*dT+arnoise) + atnoise;
     
     % Generate measurements
     rho = sqrt((xL-xt).^2+(yL-yt).^2) + rhoStd*randn(1,NL);
@@ -52,14 +56,10 @@ while (run)
         forceUpdate = 0;
         
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        % Predict motion
-        dnoise = (tspeed*dT*tdStd)*randn;
-        arnoise = (rspeed*dT*rdaStd)*randn;
-        atnoise = (tspeed*dT*tdStd)*randn;
-        
-        X(1) = X(1) + (tspeed*dT+dnoise)*cos(X(3));
-        X(2) = X(2) + (tspeed*dT+dnoise)*sin(X(3));
-        X(3) = X(3) + (rspeed*dT+arnoise) + atnoise;
+        % Predict motion        
+        X(1) = X(1) + tspeed*dT*cos(X(3));
+        X(2) = X(2) + tspeed*dT*sin(X(3));
+        X(3) = X(3) + rspeed*dT;
         
         
         D = tspeed*dT;
