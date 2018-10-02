@@ -6,8 +6,7 @@ Demos of Extended Kalman Filter and Particle Filter (MCL) for localization devel
 
 Both the EKF and the MCL programs are setup to only use measurements when teh robot has moved a certain distance. This is often good in pratice to avoid the uncertainty reducing too much in a situation where the measurements are often not living up to the requirement that they are independent over time (for exampel due to quantization in sensors). To force an update you can press the button Update
 
-## EKF
-EKF.m
+## EKF.m
 
 This is the main program to use to play around with Extended Kalman filter based localization. 
 
@@ -54,6 +53,15 @@ What happens with different setting for the measurements?
 
 In many practical applications the robot has no way of knowing where it starts and thus starts with complete uncertainty, corresponding to a uniform probability distribution. We call this problem global localization. Investigate how well the EKF works to deal with this problem by pressing the "Uniform" button.
 
-## Monte Carlo Localization
-MCL.m
+## MCL.m - Monte Carlo Localization
+This program implements a particile filter for localization, usually referred to as 
 
+## Questions
+
+### Data association
+In the examples above we assumed that we knew at all times what landmarks we measuremed. This can be implemented in practice if we have a way to distinguish one landmark from the other, for example, using appearance or a radio signature. However, there are plenty of cases where you cannot tell one landmark from another. How would you change the examle program abvove to deal with this?
+
+### Other measurements
+In KEF.m and MCL.m we use point landmarks. How would you change the code to use
+* Line segments?
+* Raw laser scans?
