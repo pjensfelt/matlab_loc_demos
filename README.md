@@ -34,13 +34,14 @@ Investigate
 * how changing the zRhoStd influences this
 * add bearing measurmeents as well (slider to the right of the range measurements) and test with these together with rang eor alone
 
+Make sure that you understand the how the update part of the EKF works. Whines lines in the code are connected to this?
 
 ### Disturbances
 The extended Kalman filter linearises the model around the current estimate. The Jacobians are evaluated for this points and they together with the state covariance matrix P determine how to calculate the Kalman K gain, which describes how measurements will influence the state estimate. 
 
 Start with
 * activate all landmarks 
-* Use 1m/s std dev noise in range and no bearings
+* Use 1m std dev noise in range and no bearings
 * Reset the robot and drive it around a bit
 
 Now press the button "Disturb" which will displace the robot randomly. How well does the robot find its pose again?
@@ -54,14 +55,64 @@ What happens with different setting for the measurements?
 In many practical applications the robot has no way of knowing where it starts and thus starts with complete uncertainty, corresponding to a uniform probability distribution. We call this problem global localization. Investigate how well the EKF works to deal with this problem by pressing the "Uniform" button.
 
 ## MCL.m - Monte Carlo Localization
-This program implements a particile filter for localization, usually referred to as 
+This program implements a particile filter for localization, usually referred to as Monte Carlo Localization.
+
+In the particle filter the probability distribution is presented by a set of particles. Each particle encodes a state and it also has an associated weight. You can look at the partcile set with or without color codes corresponding to the weight, you control this with the button "Color".
+
+You can change the number of particles used with a drop down meny.
+
+### Pure prediction
+
+Repeat the experiment from the EKF but now with the particle filter. 
+
+Make sure that you understand which part of the code that implements the prediction in the particle filter.
+
+The particle filter can presents any distribution given enough samples. Use this fact to investigate how well (visually) the Gaussian assumption that is made in the EKF holds.
+
+
+### Investigate the likelihood function
+
+The likelihood function tells us how likely a certain measurement is given a state, p(z|x). The particle filter gives us a nice way to visuale this. 
+
+Start by:
+* Deactiviate all but one landmark
+* Deactivate bearing measurements and use 1m std dev for range measurements
+* Ensure that "Color" is selected
+* Select 10000 particles
+* Click "Uniform" to spread the particles uniformly over the state space.
+
+How do you expect the distribution to look if you use one range measurements? Check by clicking "Update" once.
+
+How would you expect the distribution to look of you use two different raneg measurement? Check! (press uniform first if you want to clean things)
+
+What if you use a single landmark measurement (directly after pressing "Uniform")?
+
+What happens if you use two range measurments wirth a single update and then start moving without measurements? Why?
+
+### Pose tracking
+
+Repeat experiments from EKF
+
+### Disturbances
+
+Repeat experiments from EKF
+
+### Global localization
+
+Repeat experiments from EKF
+
 
 ## Questions
+
+### Simulation and actual filter
+The code in EKF. and MCL.m provide both simulation and the actual localization. Which parts of the code belong to which?
 
 ### Data association
 In the examples above we assumed that we knew at all times what landmarks we measuremed. This can be implemented in practice if we have a way to distinguish one landmark from the other, for example, using appearance or a radio signature. However, there are plenty of cases where you cannot tell one landmark from another. How would you change the examle program abvove to deal with this?
 
 ### Other measurements
-In KEF.m and MCL.m we use point landmarks. How would you change the code to use
+In EKF.m and MCL.m we use point landmarks. How would you change the code to use
 * Line segments?
 * Raw laser scans?
+
+
