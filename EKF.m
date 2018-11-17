@@ -48,6 +48,12 @@ while (run)
     rho = sqrt((xL-xt).^2+(yL-yt).^2) + rhoStd*randn(1,NL);
     phi = atan2(yL-yt,xL-xt) - at + phiStd*randn(1,NL);
     
+    if injectNoise == 1
+        % Increase the noise
+        P = P + 0.1*eye(3);
+        injectNoise = 0;
+    end
+    
     if forceUpdate == 1 || abs(tspeed) > 1e-6 || abs(rspeed) > 1e-6
         
         if forceUpdate == 1
@@ -61,12 +67,11 @@ while (run)
         X(2) = X(2) + tspeed*dT*sin(X(3));
         X(3) = X(3) + rspeed*dT;
         
-        
         D = tspeed*dT;
         DA = rspeed*dT;
         
-        A = [[ 1, 0, -D*sin(at)];
-            [ 0, 1, D*cos(at)];
+        A = [[ 1, 0, -D*sin(X(3))];
+            [ 0, 1, D*cos(X(3))];
             [ 0, 0, 1]];
         
         W = [cos(X(3)) 0 0;sin(X(3)) 0 0; 0 1 1];
