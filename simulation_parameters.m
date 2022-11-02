@@ -114,3 +114,6 @@ newN = 100;
 
 global forceUpdate
 forceUpdate = 0;
+
+global injectNoise;
+injectNoise = 0;

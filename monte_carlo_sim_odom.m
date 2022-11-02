@@ -40,7 +40,7 @@ while (run)
     for n=1:N
         dnoise = (tspeed*dT*tdStd)*randn;
         arnoise = (rspeed*dT*rdaStd)*randn;
-        atnoise = (tspeed*dT*tdStd)*randn;
+        atnoise = (tspeed*dT*rdStd)*randn;
     
         X(1,n) = X(1,n) + (tspeed*dT+dnoise)*cos(X(3,n));
         X(2,n) = X(2,n) + (tspeed*dT+dnoise)*sin(X(3,n));

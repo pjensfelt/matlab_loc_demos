@@ -31,9 +31,11 @@ text(xL(4)-0.3, yL(4)+0.3, '4')
 
 firstIter = 0;
 
-tdStd = 1.25;
-rdaStd = 1.25;
-rdStd = 1.25;
+% Motion model parameters. NOTE that these are quite high to explore the state
+% space
+tdStd = 1.25;  % Translation noise prop to distance
+rdaStd = 1.25; % Rotation noise prop to delta angle
+rdStd = 1.25;  % Rotation noise prop to distance traveled
 
 tinyWeights = false;
 
@@ -88,7 +90,7 @@ while (run)
             % Predict motion
             dnoise = (tspeed*dT*tdStd)*randn;
             arnoise = (rspeed*dT*rdaStd)*randn;
-            atnoise = (tspeed*dT*tdStd)*randn;
+            atnoise = (tspeed*dT*rdStd)*randn;
             
             X(1,n) = X(1,n) + (tspeed*dT+dnoise)*cos(X(3,n));
             X(2,n) = X(2,n) + (tspeed*dT+dnoise)*sin(X(3,n));

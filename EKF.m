@@ -8,6 +8,11 @@ figure(1)
 % Load simulation parameters
 simulation_parameters;
 
+% Motion model parameters
+tdStd = 0.1;  % Translation noise prop to distance
+rdaStd = 0.1; % Rotation noise prop to delta angle
+rdStd = 0.1;  % Rotation noise prop to distance traveled
+
 dispGaussApprox = 1;
 
 % Create the UI
@@ -31,18 +36,27 @@ P0 = 1e-6*eye(3);
 X = X0;
 P = P0;
 
+% Hack to test example for Lecture 10 where the robot's true pose is
+% (5,0,0) but the estimate is (0,5,0) and we measure the distance to 
+% landmark 1 close to origin 
+if 0
+    disp('Using hack init')
+    xt = 5;
+    yt = 0;
+    at = 0;
+    X(1) = 0;
+    X(2) = 5;
+    X(3) = 0;
+end
+
 firstIter = 0;
 
 while (run)
-    
-    dnoise = (tspeed*dT*tdStd)*randn;
-    arnoise = (rspeed*dT*rdaStd)*randn;
-    atnoise = (tspeed*dT*tdStd)*randn;
-    
-    % Update true pose and add noise to this
-    xt = xt + (tspeed*dT+dnoise)*cos(at);
-    yt = yt + (tspeed*dT+dnoise)*sin(at);
-    at = at + (rspeed*dT+arnoise) + atnoise;
+        
+    % Update true pose
+    xt = xt + (tspeed*dT)*cos(at);
+    yt = yt + (tspeed*dT)*sin(at);
+    at = at + (rspeed*dT);
     
     % Generate measurements
     rho = sqrt((xL-xt).^2+(yL-yt).^2) + rhoStd*randn(1,NL);

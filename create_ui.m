@@ -27,6 +27,7 @@ global zRhoStd
 global zPhiStd
 global lMask
 global forceUpdate
+global injectNoise
 
 % Create a figure and axes
 ax = axes('Units','pixels');
@@ -88,6 +89,11 @@ if filterUI
                 end
             end
         end
+    elseif filterUI == 2
+        % Create push button
+        btn = uicontrol('Style', 'pushbutton', 'String', 'Inject',...
+        'Position', [5 150 50 20],...
+        'Callback', @clb_injectNoise);
     end
     
     % Create slider
@@ -280,6 +286,11 @@ tbtn.Value = lMask(4);
     function clb_forceupdate(source,callbackdata)
         forceUpdate = 1;
         disp(sprintf('Forcing an update'))
+    end
+
+    function clb_injectNoise(source,callbackdata)
+        injectNoise = 1;
+        disp(sprintf('Injecting noise'))
     end
 
     function clb_resample(source,callbackdata)

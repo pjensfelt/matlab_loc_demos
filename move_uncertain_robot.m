@@ -17,9 +17,9 @@ rspeed = 0;
 run = 1;
 reset = 0;
 
-create_ui
-
 simulation_parameters;
+
+create_ui
 
 x = 0;
 y = 0;
